@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#05060a">
+<title>Turbo Rush</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+  <div id="stage">
+    <canvas id="game" width="1280" height="720"></canvas>
+
+    <!-- HUD durante la carrera -->
+    <div id="hud" class="hidden">
+      <div class="hud-top">
+        <div class="hud-box"><span id="hudDist">0</span> m</div>
+        <div class="hud-box">🪙 <span id="hudCoins">0</span></div>
+        <div class="hud-box hidden" id="hudPosBox">🏁 <span id="hudPos">1</span>/<span id="hudN">4</span></div>
+        <button id="btnPause" class="icon-btn" aria-label="Pausa">⏸</button>
+      </div>
+      <div id="raceTrack" class="race-track hidden"></div>
+      <div id="countdown" class="hidden"></div>
+      <div id="toast" class="hidden"></div>
+      <div class="hud-speed"><span id="hudSpeed">0</span><small>km/h</small></div>
+      <div class="hud-bottom">
+        <div class="steer">
+          <button id="btnLeft" class="pad" aria-label="Girar a la izquierda">◀</button>
+          <button id="btnRight" class="pad" aria-label="Girar a la derecha">▶</button>
+        </div>
+        <div class="nitro-col">
+          <div class="nitro-wrap"><div id="nitroBar"></div></div>
+          <button id="btnNitro">NITRO</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MENÚ -->
+    <div id="menu" class="screen split">
+      <div class="col">
+        <h1>TURBO<br><span>RUSH</span></h1>
+        <div class="chip">💰 <b id="mMoney">0</b></div>
+        <div class="chip small">🏁 Mejor: <b id="mBest">0</b> m</div>
+      </div>
+      <div class="col">
+        <button class="btn big race" data-act="race">🏁 CARRERA</button>
+        <button class="btn" data-act="play">🛣️ MODO LIBRE</button>
+        <button class="btn alt" data-act="garage">🔧 GARAJE</button>
+        <button class="btn ghost" data-act="sound" id="btnSound">🔊 Sonido: Sí</button>
+        <p class="hint">Carrera: compite contra 3 bots hasta la meta.<br>Flechas ◀ ▶ para girar · mantén NITRO para acelerar.</p>
+      </div>
+    </div>
+
+    <!-- GARAJE -->
+    <div id="garage" class="screen split hidden">
+      <div class="col">
+        <div class="g-head">
+          <button class="btn ghost small" data-act="back">← Volver</button>
+          <div class="chip">💰 <b id="gMoney">0</b></div>
+        </div>
+        <div class="g-car">
+          <button class="arrow" data-act="prev">‹</button>
+          <canvas id="preview" width="240" height="300"></canvas>
+          <button class="arrow" data-act="next">›</button>
+        </div>
+        <h2 id="gName">Auto</h2>
+      </div>
+      <div class="col">
+        <div class="stats">
+          <div class="stat"><span>Velocidad</span><div class="bar"><i id="sbV"></i></div><b id="svV"></b></div>
+          <div class="stat"><span>Aceleración</span><div class="bar"><i id="sbA"></i></div><b id="svA"></b></div>
+          <div class="stat"><span>Agarre</span><div class="bar"><i id="sbH"></i></div><b id="svH"></b></div>
+          <div class="stat"><span>Nitro</span><div class="bar"><i id="sbN"></i></div><b id="svN"></b></div>
+        </div>
+        <button class="btn" id="gMain" data-act="main">Comprar</button>
+        <div id="gUps" class="ups"></div>
+      </div>
+    </div>
+
+    <!-- PAUSA -->
+    <div id="pause" class="screen hidden">
+      <h2>PAUSA</h2>
+      <button class="btn big" data-act="resume">CONTINUAR</button>
+      <button class="btn alt" data-act="menu">SALIR AL MENÚ</button>
+      <button class="btn ghost" data-act="sound" id="btnSound2">🔊 Sonido: Sí</button>
+    </div>
+
+    <!-- FIN DE PARTIDA -->
+    <div id="over" class="screen split hidden">
+      <div class="col">
+        <h2 id="oTitle">¡CHOCASTE!</h2>
+        <div id="overRecord" class="record hidden">⭐ ¡Nuevo récord!</div>
+        <div class="result">
+          <div id="oPlaceRow" class="hidden"><span>Puesto</span><b id="oPlace"></b></div>
+          <div><span>Distancia</span><b id="oDist">0 m</b></div>
+          <div><span>Monedas</span><b id="oCoins">0</b></div>
+          <div class="earn"><span>Ganaste</span><b id="oEarn">+0</b></div>
+          <div><span>Total</span><b id="oTotal">0</b></div>
+        </div>
+      </div>
+      <div class="col">
+        <button class="btn big" data-act="again">OTRA VEZ</button>
+        <button class="btn alt" data-act="garage">🔧 GARAJE</button>
+        <button class="btn ghost" data-act="menu">Menú</button>
+      </div>
+    </div>
+
+    <!-- AVISO: girar el celular -->
+    <div id="rotate" class="screen">
+      <div class="rot-ico">📱</div>
+      <h2>Girá el celular</h2>
+      <p class="hint">Turbo Rush se juega en horizontal.</p>
+    </div>
+  </div>
+</div>
+<script src="three.min.js"></script>
+<script src="config.js"></script>
+<script src="game.js"></script>
+</body>
+</html>
